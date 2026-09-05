@@ -1,8 +1,9 @@
 import { useCallback, useMemo, useState } from 'react';
 import { FileText, Loader2, Play, Sparkles } from 'lucide-react';
 
-import type { AnalyzeResponse, AnalyzeStage } from '../types';
+import { useAuth } from '../auth/AuthContext';
 import { SAMPLE_TEXT } from '../sample';
+import type { AnalyzeResponse, AnalyzeStage } from '../types';
 
 import EmicAlignmentPanel from './EmicAlignmentPanel';
 import ScholarBriefPanel from './ScholarBriefPanel';
@@ -10,10 +11,12 @@ import ScholarBriefPanel from './ScholarBriefPanel';
 type TabKey = 'emic' | 'brief';
 
 /**
- * Two-column research workspace: text input on the left, tabbed results on
- * the right (Emic Alignment + Scholar Brief).
+ * Two-column research workspace: Pāṭha (input) on the left in a 5:7 split
+ * with Vimarśa (analysis) on the right, honoring the "Pyramid of Priorities"
+ * where the analytical yield dominates.
  */
 export default function ResearchWorkspace(): JSX.Element {
+  const { tokens } = useAuth();
   const [text, setText] = useState<string>('');
   const [result, setResult] = useState<AnalyzeResponse | null>(null);
   const [tab, setTab] = useState<TabKey>('emic');
@@ -21,14 +24,14 @@ export default function ResearchWorkspace(): JSX.Element {
   const [error, setError] = useState<string | null>(null);
 
   const isLoading = stage === 'emic' || stage === 'brief';
-  const canSubmit = text.trim().length >= 20 && !isLoading;
+  const canSubmit = text.trim().length >= 20 && !isLoading && !!tokens;
 
   const stageLabel = useMemo(() => {
     switch (stage) {
       case 'emic':
-        return 'Scanning Emic Alignment...';
+        return 'Scanning Dṛṣṭi-Śuddhi...';
       case 'brief':
-        return 'Generating Scholar Brief...';
+        return 'Composing Śodharthī...';
       case 'done':
         return 'Analysis complete.';
       default:
@@ -37,6 +40,7 @@ export default function ResearchWorkspace(): JSX.Element {
   }, [stage]);
 
   const runAnalysis = useCallback(async () => {
+    if (!tokens) return;
     setError(null);
     setResult(null);
     setStage('emic');
@@ -46,7 +50,10 @@ export default function ResearchWorkspace(): JSX.Element {
     try {
       const res = await fetch('/api/analyze', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${tokens.idToken}`,
+        },
         body: JSON.stringify({ text }),
       });
       if (!res.ok) {
@@ -63,17 +70,20 @@ export default function ResearchWorkspace(): JSX.Element {
     } finally {
       window.clearTimeout(briefTimer);
     }
-  }, [text]);
+  }, [text, tokens]);
 
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
-      {/* Left column: input */}
-      <section className="flex min-h-[70vh] flex-col">
+    <div className="grid gap-8 lg:grid-cols-12">
+      {/* Left column: Pāṭha (input) — 5/12 */}
+      <section className="flex min-h-[70vh] flex-col lg:col-span-5">
         <div className="mb-3 flex items-center justify-between">
-          <h2 className="flex items-center gap-2 text-xl">
-            <FileText className="h-5 w-5 text-terracotta" aria-hidden />
-            Research Passage
-          </h2>
+          <div>
+            <p className="inscription">Pāṭha</p>
+            <h2 className="flex items-center gap-2 text-xl">
+              <FileText className="h-5 w-5 text-terracotta" aria-hidden />
+              Research Passage
+            </h2>
+          </div>
           <button
             type="button"
             className="btn-ghost"
@@ -102,11 +112,11 @@ export default function ResearchWorkspace(): JSX.Element {
             ) : (
               <Play className="h-4 w-4" aria-hidden />
             )}
-            {isLoading ? 'Analyzing...' : 'Analyze Text'}
+            {isLoading ? 'Analyzing...' : 'Ārambha · Analyze'}
           </button>
 
           {stageLabel && (
-            <span className="flex items-center gap-2 text-sm text-ink-muted">
+            <span className="flex items-center gap-2 text-sm text-ink-muted dark:text-ink-inverse-muted">
               {isLoading && (
                 <Loader2 className="h-3.5 w-3.5 animate-spin" aria-hidden />
               )}
@@ -116,20 +126,23 @@ export default function ResearchWorkspace(): JSX.Element {
         </div>
 
         {error && (
-          <div className="mt-4 rounded-md border border-crimson/30 bg-crimson/5 p-3 text-sm text-crimson">
+          <div className="mt-4 rounded-md border border-crimson/30 bg-crimson/5 p-3 text-sm text-crimson dark:text-crimson-light">
             {error}
           </div>
         )}
       </section>
 
-      {/* Right column: output */}
-      <section className="flex min-h-[70vh] flex-col">
-        <div className="mb-3 flex items-center gap-2">
-          <Sparkles className="h-5 w-5 text-terracotta" aria-hidden />
-          <h2 className="text-xl">Analysis</h2>
+      {/* Right column: Vimarśa (analysis) — 7/12 */}
+      <section className="flex min-h-[70vh] flex-col lg:col-span-7">
+        <div className="mb-3">
+          <p className="inscription">Vimarśa</p>
+          <h2 className="flex items-center gap-2 text-xl">
+            <Sparkles className="h-5 w-5 text-terracotta" aria-hidden />
+            Analysis
+          </h2>
         </div>
 
-        <div className="mb-4 flex gap-6 border-b border-border-warm text-sm font-medium">
+        <div className="mb-4 flex gap-6 border-b border-border-warm text-sm font-medium dark:border-border-deep">
           <button
             type="button"
             className={`-mb-px border-b-2 px-1 py-2 transition-colors ${
@@ -137,9 +150,9 @@ export default function ResearchWorkspace(): JSX.Element {
             }`}
             onClick={() => setTab('emic')}
           >
-            Emic Alignment
-            <span className="ml-1 text-xs text-ink-muted">
-              (Drishti-Shuddhi)
+            Dṛṣṭi-Śuddhi
+            <span className="ml-1 text-xs text-ink-muted dark:text-ink-inverse-muted">
+              (Emic Alignment)
             </span>
           </button>
           <button
@@ -149,20 +162,25 @@ export default function ResearchWorkspace(): JSX.Element {
             }`}
             onClick={() => setTab('brief')}
           >
-            Scholar Brief
-            <span className="ml-1 text-xs text-ink-muted">(Shodharthi)</span>
+            Śodharthī
+            <span className="ml-1 text-xs text-ink-muted dark:text-ink-inverse-muted">
+              (Scholar Brief)
+            </span>
           </button>
         </div>
 
         <div className="flex-1 overflow-y-auto pr-1">
           {!result ? (
-            <div className="card p-6 text-center text-ink-muted">
-              <p className="font-serif text-lg text-ink">
+            <div className="card p-6 text-center text-ink-muted dark:text-ink-inverse-muted">
+              <p className="font-serif text-lg text-ink dark:text-ink-inverse">
                 Awaiting analysis.
               </p>
               <p className="mt-1 text-sm">
                 Paste or load a passage on the left, then press{' '}
-                <span className="font-medium text-ink">Analyze Text</span>.
+                <span className="font-medium text-ink dark:text-ink-inverse">
+                  Ārambha
+                </span>
+                .
               </p>
             </div>
           ) : tab === 'emic' ? (

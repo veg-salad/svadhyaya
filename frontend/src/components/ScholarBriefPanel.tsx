@@ -1,4 +1,4 @@
-import { Compass, Sparkles, ScrollText } from 'lucide-react';
+import { Compass, ScrollText, Sparkles } from 'lucide-react';
 
 import type { ScholarBrief } from '../types';
 
@@ -7,8 +7,8 @@ interface Props {
 }
 
 /**
- * Renders the "Shodharthi" scholar brief: executive summary, core Indic
- * themes, and recommended research angles.
+ * "Śodharthī" panel: executive synthesis, core Indic themes, and
+ * recommended research angles.
  */
 export default function ScholarBriefPanel({ brief }: Props): JSX.Element {
   const empty =
@@ -18,9 +18,11 @@ export default function ScholarBriefPanel({ brief }: Props): JSX.Element {
 
   if (empty) {
     return (
-      <div className="card p-6 text-center text-ink-muted">
+      <div className="card p-6 text-center text-ink-muted dark:text-ink-inverse-muted">
         <ScrollText className="mx-auto mb-3 h-6 w-6 text-terracotta" aria-hidden />
-        <p className="font-serif text-lg text-ink">No brief yet.</p>
+        <p className="font-serif text-lg text-ink dark:text-ink-inverse">
+          No brief yet.
+        </p>
         <p className="mt-1 text-sm">Analyze a passage to generate one.</p>
       </div>
     );
@@ -31,9 +33,9 @@ export default function ScholarBriefPanel({ brief }: Props): JSX.Element {
       <section className="card p-6">
         <header className="mb-3 flex items-center gap-2">
           <ScrollText className="h-4 w-4 text-terracotta" aria-hidden />
-          <h3 className="text-lg">Executive Summary</h3>
+          <h3 className="text-lg">Executive Synthesis</h3>
         </header>
-        <p className="font-serif text-base leading-relaxed text-ink">
+        <p className="font-body text-base leading-relaxed text-ink dark:text-ink-inverse">
           {brief.executiveSummary || '—'}
         </p>
       </section>
@@ -45,7 +47,10 @@ export default function ScholarBriefPanel({ brief }: Props): JSX.Element {
         </header>
         <ul className="space-y-2">
           {brief.coreIndicThemes.map((theme, i) => (
-            <li key={i} className="flex gap-2 text-sm text-ink">
+            <li
+              key={i}
+              className="flex gap-2 text-sm text-ink dark:text-ink-inverse"
+            >
               <span className="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-terracotta" />
               <span>{theme}</span>
             </li>
@@ -60,7 +65,10 @@ export default function ScholarBriefPanel({ brief }: Props): JSX.Element {
         </header>
         <ol className="space-y-3">
           {brief.recommendedResearchAngles.map((angle, i) => (
-            <li key={i} className="flex gap-3 text-sm text-ink">
+            <li
+              key={i}
+              className="flex gap-3 text-sm text-ink dark:text-ink-inverse"
+            >
               <span className="flex h-6 w-6 flex-none items-center justify-center rounded-full bg-terracotta/10 text-xs font-semibold text-terracotta">
                 {i + 1}
               </span>

@@ -14,3 +14,9 @@ npm-debug.log*
 .DS_Store
 .idea/
 .vscode/
+
+# Local test artefacts
+.pool-id.tmp
+.client-id.tmp
+.id-token.tmp
+

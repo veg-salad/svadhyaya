@@ -1,4 +1,6 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
+
+import { CognitoAuthGuard } from '../auth/cognito-auth.guard';
 
 import { AnalysisService } from './analysis.service';
 import { AnalyzeRequestDto, AnalyzeResponse } from './dto/analyze.dto';
@@ -16,11 +18,12 @@ export class AnalysisController {
   constructor(private readonly service: AnalysisService) {}
 
   /**
-   * Handles `POST /api/analyze`.
+   * Handles `POST /api/analyze`. Requires a Cognito bearer token.
    * @param body Validated request payload.
    */
   @Post()
   @HttpCode(200)
+  @UseGuards(CognitoAuthGuard)
   async analyze(@Body() body: AnalyzeRequestDto): Promise<AnalyzeResponse> {
     return this.service.analyze(body.text);
   }
