@@ -1,15 +1,12 @@
-import { Compass, ScrollText, Sparkles } from 'lucide-react';
-
 import type { ScholarBrief } from '../types';
+
+import { Chakra, Dvaja, Grantha } from './IndicIcons';
 
 interface Props {
   brief: ScholarBrief;
 }
 
-/**
- * "Śodharthī" panel: executive synthesis, core Indic themes, and
- * recommended research angles.
- */
+/** Śodharthī panel: synthesis, core themes, research angles. */
 export default function ScholarBriefPanel({ brief }: Props): JSX.Element {
   const empty =
     !brief.executiveSummary &&
@@ -19,7 +16,7 @@ export default function ScholarBriefPanel({ brief }: Props): JSX.Element {
   if (empty) {
     return (
       <div className="card p-6 text-center text-ink-muted dark:text-ink-inverse-muted">
-        <ScrollText className="mx-auto mb-3 h-6 w-6 text-terracotta" aria-hidden />
+        <Grantha className="mx-auto mb-3 h-6 w-6 text-terracotta" />
         <p className="font-serif text-lg text-ink dark:text-ink-inverse">
           No brief yet.
         </p>
@@ -32,7 +29,7 @@ export default function ScholarBriefPanel({ brief }: Props): JSX.Element {
     <div className="space-y-4">
       <section className="card p-6">
         <header className="mb-3 flex items-center gap-2">
-          <ScrollText className="h-4 w-4 text-terracotta" aria-hidden />
+          <Grantha className="h-4 w-4 text-terracotta" />
           <h3 className="text-lg">Executive Synthesis</h3>
         </header>
         <p className="font-body text-base leading-relaxed text-ink dark:text-ink-inverse">
@@ -42,7 +39,7 @@ export default function ScholarBriefPanel({ brief }: Props): JSX.Element {
 
       <section className="card p-6">
         <header className="mb-3 flex items-center gap-2">
-          <Compass className="h-4 w-4 text-terracotta" aria-hidden />
+          <Chakra className="h-4 w-4 text-terracotta" />
           <h3 className="text-lg">Core Indic Themes</h3>
         </header>
         <ul className="space-y-2">
@@ -60,7 +57,7 @@ export default function ScholarBriefPanel({ brief }: Props): JSX.Element {
 
       <section className="card p-6">
         <header className="mb-3 flex items-center gap-2">
-          <Sparkles className="h-4 w-4 text-terracotta" aria-hidden />
+          <Dvaja className="h-4 w-4 text-terracotta" />
           <h3 className="text-lg">Recommended Research Angles</h3>
         </header>
         <ol className="space-y-3">

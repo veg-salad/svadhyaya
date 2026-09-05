@@ -48,6 +48,20 @@ export default {
         card: '0 1px 2px rgba(31, 36, 33, 0.04), 0 4px 12px rgba(31, 36, 33, 0.04)',
         'card-dark': '0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3)',
       },
+      keyframes: {
+        spinSlow: {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(360deg)' },
+        },
+        spinReverse: {
+          from: { transform: 'rotate(0deg)' },
+          to: { transform: 'rotate(-360deg)' },
+        },
+      },
+      animation: {
+        'spin-slow': 'spinSlow 60s linear infinite',
+        'spin-slower': 'spinReverse 90s linear infinite',
+      },
     },
   },
   plugins: [],

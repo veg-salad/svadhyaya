@@ -1,8 +1,8 @@
-import { Moon, Sun } from 'lucide-react';
+import { Chakra, Chandra, Surya } from './IndicIcons';
 
 import { useTheme } from '../theme';
 
-/** Small round toggle button for switching between light and dark modes. */
+/** Small round toggle — chakra frames a rotating Sūrya/Chandra glyph. */
 export default function ThemeToggle(): JSX.Element {
   const { theme, toggle } = useTheme();
   const isDark = theme === 'dark';
@@ -10,14 +10,15 @@ export default function ThemeToggle(): JSX.Element {
     <button
       type="button"
       onClick={toggle}
-      className="btn-icon"
+      className="group btn-icon relative overflow-hidden"
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-      title={isDark ? 'Light mode' : 'Dark mode'}
+      title={isDark ? 'Sūrya · Light mode' : 'Chandra · Dark mode'}
     >
+      <Chakra className="absolute inset-1 h-6 w-6 text-terracotta/30 transition-transform duration-700 group-hover:rotate-45" />
       {isDark ? (
-        <Sun className="h-4 w-4" aria-hidden />
+        <Surya className="relative h-3.5 w-3.5 text-terracotta" />
       ) : (
-        <Moon className="h-4 w-4" aria-hidden />
+        <Chandra className="relative h-3.5 w-3.5 text-terracotta" />
       )}
     </button>
   );

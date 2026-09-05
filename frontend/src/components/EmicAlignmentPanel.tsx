@@ -1,20 +1,19 @@
-import { ArrowRight, BookOpen } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 import type { EmicAlignment } from '../types';
+
+import { Grantha } from './IndicIcons';
 
 interface Props {
   alignments: EmicAlignment[];
 }
 
-/**
- * "Dṛṣṭi-Śuddhi" panel: colonized/orientalist framings the model flagged
- * with their emic replacements and per-term rationale.
- */
+/** Dṛṣṭi-Śuddhi panel: emic replacements for colonized terms in the draft. */
 export default function EmicAlignmentPanel({ alignments }: Props): JSX.Element {
   if (alignments.length === 0) {
     return (
       <div className="card p-6 text-center text-ink-muted dark:text-ink-inverse-muted">
-        <BookOpen className="mx-auto mb-3 h-6 w-6 text-terracotta" aria-hidden />
+        <Grantha className="mx-auto mb-3 h-6 w-6 text-terracotta" />
         <p className="font-serif text-lg text-ink dark:text-ink-inverse">
           No colonized framing detected.
         </p>

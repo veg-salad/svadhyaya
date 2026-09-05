@@ -1,18 +1,17 @@
-import { LogOut } from 'lucide-react';
-
 import { useAuth } from '../auth/AuthContext';
 
+import { Dvaja } from './IndicIcons';
 import ThemeToggle from './ThemeToggle';
 
 /**
- * Top-of-page header. Shows the app mark, a quiet inscription, the
- * signed-in user's full name, a theme toggle, and sign-out.
+ * Top-of-page header. Signed-in state shows the user's full name and a
+ * dvaja icon for sign-out; theme toggle sits between.
  */
 export default function Header(): JSX.Element {
   const { tokens, signOut } = useAuth();
   return (
-    <header className="border-b border-border-warm bg-parchment-50/80 backdrop-blur dark:border-border-deep dark:bg-surface-deep/80">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-5">
+    <header className="relative z-10 border-b border-border-warm bg-parchment-50/80 backdrop-blur dark:border-border-deep dark:bg-surface-deep/80">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
         <div>
           <h1 className="text-2xl leading-none">
             Svadhyāya
@@ -45,7 +44,7 @@ export default function Header(): JSX.Element {
               onClick={signOut}
               title="Sign out"
             >
-              <LogOut className="h-4 w-4" aria-hidden />
+              <Dvaja className="h-4 w-4" />
               <span className="hidden md:inline">Sign out</span>
             </button>
           )}

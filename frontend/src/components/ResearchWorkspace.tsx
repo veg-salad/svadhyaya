@@ -1,19 +1,19 @@
 import { useCallback, useMemo, useState } from 'react';
-import { FileText, Loader2, Play, Sparkles } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 
 import { useAuth } from '../auth/AuthContext';
 import { SAMPLE_TEXT } from '../sample';
 import type { AnalyzeResponse, AnalyzeStage } from '../types';
 
 import EmicAlignmentPanel from './EmicAlignmentPanel';
+import { Diya, Grantha, Yantra } from './IndicIcons';
 import ScholarBriefPanel from './ScholarBriefPanel';
 
 type TabKey = 'emic' | 'brief';
 
 /**
- * Two-column research workspace: Pāṭha (input) on the left in a 5:7 split
- * with Vimarśa (analysis) on the right, honoring the "Pyramid of Priorities"
- * where the analytical yield dominates.
+ * Two-column research workspace. Pāṭha (input) 5/12, Vimarśa (analysis)
+ * 7/12 so the analytical yield dominates.
  */
 export default function ResearchWorkspace(): JSX.Element {
   const { tokens } = useAuth();
@@ -74,13 +74,12 @@ export default function ResearchWorkspace(): JSX.Element {
 
   return (
     <div className="grid gap-8 lg:grid-cols-12">
-      {/* Left column: Pāṭha (input) — 5/12 */}
       <section className="flex min-h-[70vh] flex-col lg:col-span-5">
         <div className="mb-3 flex items-center justify-between">
           <div>
             <p className="inscription">Pāṭha</p>
             <h2 className="flex items-center gap-2 text-xl">
-              <FileText className="h-5 w-5 text-terracotta" aria-hidden />
+              <Grantha className="h-5 w-5 text-terracotta" />
               Research Passage
             </h2>
           </div>
@@ -110,7 +109,7 @@ export default function ResearchWorkspace(): JSX.Element {
             {isLoading ? (
               <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
             ) : (
-              <Play className="h-4 w-4" aria-hidden />
+              <Diya className="h-4 w-4" />
             )}
             {isLoading ? 'Analyzing...' : 'Ārambha · Analyze'}
           </button>
@@ -132,12 +131,11 @@ export default function ResearchWorkspace(): JSX.Element {
         )}
       </section>
 
-      {/* Right column: Vimarśa (analysis) — 7/12 */}
       <section className="flex min-h-[70vh] flex-col lg:col-span-7">
         <div className="mb-3">
           <p className="inscription">Vimarśa</p>
           <h2 className="flex items-center gap-2 text-xl">
-            <Sparkles className="h-5 w-5 text-terracotta" aria-hidden />
+            <Yantra className="h-5 w-5 text-terracotta" />
             Analysis
           </h2>
         </div>
