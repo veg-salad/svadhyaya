@@ -20,3 +20,9 @@ npm-debug.log*
 .client-id.tmp
 .id-token.tmp
 
+# Lambda deployment artefacts
+backend/dist-lambda/
+backend/lambda.zip
+backend/.packaged.yaml
+.screenshot.png
+

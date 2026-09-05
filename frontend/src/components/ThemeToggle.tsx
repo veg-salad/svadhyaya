@@ -15,7 +15,7 @@ export default function ThemeToggle(): JSX.Element {
       title={isDark ? 'Sūrya · Light mode' : 'Chandra · Dark mode'}
     >
       <Icon
-        icon={isDark ? 'game-icons:sundial' : 'game-icons:half-moon'}
+        icon={isDark ? 'game-icons:sundial' : 'game-icons:crescent-blade'}
         className="h-5 w-5 text-terracotta"
       />
     </button>

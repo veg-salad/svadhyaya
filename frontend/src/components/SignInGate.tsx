@@ -73,10 +73,10 @@ export default function SignInGate(): JSX.Element {
     <div className="relative mx-auto flex w-full max-w-md flex-col items-center py-4">
       {/* Traditional mandala backdrop, sits behind the card */}
       <img
-        src="/images/mandala.svg"
+        src="/images/mandala.jpg"
         alt=""
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.08] dark:opacity-[0.14] dark:invert"
+        className="pointer-events-none absolute left-1/2 top-1/2 h-[540px] w-[540px] -translate-x-1/2 -translate-y-1/2 select-none rounded-full opacity-40 mix-blend-multiply dark:opacity-30 dark:mix-blend-screen"
       />
 
       <p className="inscription relative mb-2 animate-rise">Svādhyāya</p>

@@ -30,7 +30,10 @@ export class CognitoAuthGuard implements CanActivate {
    * @param config Nest ConfigService.
    */
   constructor(private readonly config: ConfigService) {
-    const region = this.config.get<string>('AWS_REGION') || 'ap-south-1';
+    const region =
+      this.config.get<string>('COGNITO_REGION') ||
+      this.config.get<string>('AWS_REGION') ||
+      'ap-south-1';
     const poolId = this.config.get<string>('COGNITO_USER_POOL_ID');
     const clientId = this.config.get<string>('COGNITO_CLIENT_ID');
     if (!poolId || !clientId) {

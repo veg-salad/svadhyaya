@@ -1,0 +1,90 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Svadhyaya API — NestJS on Lambda + HTTP API Gateway (Option A hosting)
+
+Parameters:
+  OpenAIApiKey:
+    Type: String
+    NoEcho: true
+    Description: OpenAI API key (do not commit).
+  OpenAIModel:
+    Type: String
+    Default: gpt-4o-mini
+  OpenAIBaseUrl:
+    Type: String
+    Default: https://api.openai.com/v1
+  CognitoUserPoolId:
+    Type: String
+    Default: ap-south-1_SvcMWhvVh
+  CognitoClientId:
+    Type: String
+    Default: 58q44mvcgfinqi0m0kv5s18u7e
+  CognitoRegion:
+    Type: String
+    Default: ap-south-1
+  AllowedOrigins:
+    Type: CommaDelimitedList
+    Description: Origins allowed to call the API (e.g. https://svadhyaya.vercel.app).
+    Default: 'http://localhost:5173,http://127.0.0.1:5173'
+
+Globals:
+  Function:
+    Runtime: nodejs20.x
+    Timeout: 30
+    MemorySize: 512
+    Architectures: [x86_64]
+    LoggingConfig:
+      LogFormat: JSON
+
+Resources:
+  SvadhyayaApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      # HTTP API's built-in CORS handling
+      CorsConfiguration:
+        AllowOrigins: !Ref AllowedOrigins
+        AllowMethods:
+          - GET
+          - POST
+          - OPTIONS
+        AllowHeaders:
+          - Authorization
+          - Content-Type
+        MaxAge: 86400
+
+  SvadhyayaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: svadhyaya-api
+      CodeUri: dist-lambda/
+      Handler: lambda.handler
+      Environment:
+        Variables:
+          OPENAI_API_KEY: !Ref OpenAIApiKey
+          OPENAI_MODEL: !Ref OpenAIModel
+          OPENAI_BASE_URL: !Ref OpenAIBaseUrl
+          COGNITO_USER_POOL_ID: !Ref CognitoUserPoolId
+          COGNITO_CLIENT_ID: !Ref CognitoClientId
+          COGNITO_REGION: !Ref CognitoRegion
+          NODE_OPTIONS: '--enable-source-maps'
+      Events:
+        AnyRoute:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref SvadhyayaApi
+            Path: /{proxy+}
+            Method: ANY
+
+  SvadhyayaLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub '/aws/lambda/${SvadhyayaFunction}'
+      RetentionInDays: 14
+
+Outputs:
+  ApiUrl:
+    Description: Public HTTPS URL for the API (append /api/analyze).
+    Value: !Sub 'https://${SvadhyayaApi}.execute-api.${AWS::Region}.amazonaws.com'
+  FunctionName:
+    Description: Lambda function name.
+    Value: !Ref SvadhyayaFunction

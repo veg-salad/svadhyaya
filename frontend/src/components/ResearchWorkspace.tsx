@@ -45,7 +45,8 @@ export default function ResearchWorkspace(): JSX.Element {
     const briefTimer = window.setTimeout(() => setStage('brief'), 900);
 
     try {
-      const res = await fetch('/api/analyze', {
+      const apiBase = (import.meta.env.VITE_API_BASE_URL || '').replace(/\/$/, '');
+      const res = await fetch(`${apiBase}/api/analyze`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

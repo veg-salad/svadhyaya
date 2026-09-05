@@ -10,12 +10,12 @@ function AppBody(): JSX.Element {
 
   return (
     <div className="relative flex min-h-dvh flex-col">
-      {/* Ambient traditional mandala backdrop, present on every screen. */}
+      {/* Ambient mehndi-style mandala backdrop, present on every screen. */}
       <img
-        src="/images/mandala.svg"
+        src="/images/mandala.jpg"
         alt=""
         aria-hidden
-        className="pointer-events-none fixed left-1/2 top-1/2 -z-0 h-[900px] w-[900px] -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.05] dark:opacity-[0.08] dark:invert"
+        className="pointer-events-none fixed left-1/2 top-1/2 -z-0 h-[820px] w-[820px] -translate-x-1/2 -translate-y-1/2 select-none rounded-full opacity-[0.10] mix-blend-multiply dark:opacity-[0.16] dark:mix-blend-screen"
       />
 
       <Header />
@@ -43,16 +43,16 @@ function AppBody(): JSX.Element {
           Bodha Research Think Tank <span className="danda" aria-hidden />
           Designed by ṛta &mdash; ethical, harmonious, regenerative.{' '}
           <span className="danda" aria-hidden />
-          Mandala art:{' '}
+          Ornament:{' '}
           <a
             className="underline hover:text-terracotta"
-            href="https://commons.wikimedia.org/wiki/File:Sahasrara_Mandala.svg"
+            href="https://www.magnific.com/free-vector/vector-ornamental-round-lace-with-damask-arabesque-elements-mehndi-style-orient-traditional-ornament-zentangle-like-round-colored-floral-ornament_1283448.htm"
             target="_blank"
             rel="noreferrer"
           >
-            Wikimedia Commons
-          </a>{' '}
-          (CC BY-SA 4.0). Icons:{' '}
+            Freepik/Magnific
+          </a>
+          . Icons:{' '}
           <a
             className="underline hover:text-terracotta"
             href="https://game-icons.net/"
