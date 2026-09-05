@@ -1,0 +1,16 @@
+node_modules/
+dist/
+build/
+coverage/
+.vite/
+.cache/
+.npm-cache/
+.npm-global/
+.env
+.env.local
+.env.*.local
+*.log
+npm-debug.log*
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-parchment-50 text-ink font-sans antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-serif tracking-tight;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-md
+           bg-terracotta px-4 py-2 text-sm font-semibold text-white
+           shadow-sm transition-colors hover:bg-terracotta-dark
+           focus:outline-none focus:ring-2 focus:ring-terracotta/40
+           disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-md
+           border border-border-warm bg-white px-3 py-2 text-sm font-medium
+           text-ink transition-colors hover:bg-parchment-100
+           focus:outline-none focus:ring-2 focus:ring-terracotta/30;
+  }
+
+  .card {
+    @apply rounded-lg border border-border-warm bg-white shadow-card;
+  }
+
+  .badge-terracotta {
+    @apply inline-flex items-center rounded-full bg-terracotta/10
+           px-2.5 py-0.5 text-xs font-semibold uppercase tracking-wider
+           text-terracotta;
+  }
+
+  .tab-active {
+    @apply border-terracotta text-terracotta;
+  }
+
+  .tab-inactive {
+    @apply border-transparent text-ink-muted hover:text-ink;
+  }
+
+  .textarea-scholar {
+    @apply w-full flex-1 resize-none rounded-md border border-border-warm
+           bg-parchment-100 p-4 font-serif text-base leading-relaxed text-ink
+           placeholder:text-ink-muted
+           focus:border-terracotta focus:outline-none
+           focus:ring-2 focus:ring-terracotta/20;
+  }
+}
