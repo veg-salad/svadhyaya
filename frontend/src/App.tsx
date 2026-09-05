@@ -15,7 +15,7 @@ function AppBody(): JSX.Element {
         src="/images/mandala.jpg"
         alt=""
         aria-hidden
-        className="pointer-events-none fixed left-1/2 top-1/2 -z-0 h-[820px] w-[820px] -translate-x-1/2 -translate-y-1/2 select-none rounded-full opacity-[0.10] mix-blend-multiply dark:opacity-[0.16] dark:mix-blend-screen"
+        className="pointer-events-none fixed left-1/2 top-1/2 -z-0 h-[820px] w-[820px] -translate-x-1/2 -translate-y-1/2 select-none rounded-full opacity-[0.10] mix-blend-multiply dark:opacity-[0.06] dark:mix-blend-lighten"
       />
 
       <Header />

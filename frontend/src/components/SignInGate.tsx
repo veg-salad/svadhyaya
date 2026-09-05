@@ -70,31 +70,32 @@ export default function SignInGate(): JSX.Element {
         : 'Verify your email to complete registration.';
 
   return (
-    <div className="relative mx-auto flex w-full max-w-md flex-col items-center py-4">
-      {/* Traditional mandala backdrop, sits behind the card */}
-      <img
-        src="/images/mandala.jpg"
-        alt=""
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[540px] w-[540px] -translate-x-1/2 -translate-y-1/2 select-none rounded-full opacity-40 mix-blend-multiply dark:opacity-30 dark:mix-blend-screen"
-      />
-
-      <p className="inscription relative mb-2 animate-rise">Svādhyāya</p>
-      <p className="relative mb-6 max-w-sm px-4 text-center font-serif text-base leading-snug text-ink animate-rise-delay dark:text-ink-inverse md:text-lg">
+    <div className="mx-auto flex w-full max-w-md flex-col items-center py-4">
+      <p className="inscription mb-2 animate-rise">Svādhyāya</p>
+      <p className="mb-6 max-w-sm px-4 text-center font-serif text-base leading-snug text-ink animate-rise-delay dark:text-ink-inverse md:text-lg">
         A scholar&rsquo;s assistant that reads your draft in an{' '}
         <span className="animate-glow font-semibold">emic register</span>, flags
         colonized framings, and returns a research brief.
       </p>
 
-      <div className="relative w-full card p-7">
-        <div className="mb-3 flex items-center gap-2">
-          <Icon
-            icon="game-icons:persian-vase"
-            className="h-4 w-4 text-terracotta"
-          />
-          <p className="inscription">{heading}</p>
-        </div>
-        <h2 className="text-2xl leading-tight md:text-3xl">{subheading}</h2>
+      {/* Mandala sits BEHIND the card only, keeping the tagline area clean. */}
+      <div className="relative w-full">
+        <img
+          src="/images/mandala.jpg"
+          alt=""
+          aria-hidden
+          className="pointer-events-none absolute left-1/2 top-1/2 h-[520px] w-[520px] -translate-x-1/2 -translate-y-1/2 select-none rounded-full opacity-35 mix-blend-multiply dark:opacity-[0.18] dark:mix-blend-lighten"
+        />
+
+        <div className="relative w-full card p-7">
+          <div className="mb-3 flex items-center gap-2">
+            <Icon
+              icon="game-icons:persian-vase"
+              className="h-4 w-4 text-terracotta"
+            />
+            <p className="inscription">{heading}</p>
+          </div>
+          <h2 className="text-2xl leading-tight md:text-3xl">{subheading}</h2>
 
         <form onSubmit={onSubmit} className="mt-5 space-y-3">
           {mode === 'signup' && (
@@ -223,6 +224,7 @@ export default function SignInGate(): JSX.Element {
             </>
           )}
         </div>
+      </div>
       </div>
     </div>
   );

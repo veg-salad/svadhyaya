@@ -12,19 +12,19 @@ export default {
         },
         border: {
           warm: '#EADEC9',
-          deep: '#2A2E33',
+          deep: '#3D342C',
         },
         ink: {
           DEFAULT: '#1F2421',
           muted: '#6B7280',
-          inverse: '#F5EFE4',
-          'inverse-muted': '#A8ADB2',
+          inverse: '#F1E9DA',
+          'inverse-muted': '#B5AC9F',
         },
         surface: {
           DEFAULT: '#FFFFFF',
           alt: '#F7F4EF',
-          deep: '#141614',
-          'deep-alt': '#1B1E1C',
+          deep: '#1A1613',
+          'deep-alt': '#26201C',
         },
         terracotta: {
           DEFAULT: '#C85A32',
@@ -46,7 +46,8 @@ export default {
       },
       boxShadow: {
         card: '0 1px 2px rgba(31, 36, 33, 0.04), 0 4px 12px rgba(31, 36, 33, 0.04)',
-        'card-dark': '0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 12px rgba(0, 0, 0, 0.3)',
+        'card-dark':
+          '0 1px 0 rgba(255, 240, 220, 0.04) inset, 0 8px 24px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.35)',
       },
       keyframes: {
         spinSlow: {
