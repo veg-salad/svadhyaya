@@ -70,6 +70,16 @@ export default function SignInGate(): JSX.Element {
 
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-6">
+      <div className="mb-8 text-center">
+        <p className="inscription animate-rise">What Svādhyāya does</p>
+        <p className="mt-2 font-serif text-xl leading-snug text-ink animate-rise-delay dark:text-ink-inverse">
+          Paste a research draft &mdash; it reads the passage in an{' '}
+          <span className="animate-glow font-semibold">emic register</span>,
+          flags colonized framings with indigenous alternatives, and returns a
+          scholar&rsquo;s brief.
+        </p>
+      </div>
+
       <div className="card p-8">
         <p className="inscription">{heading}</p>
         <h2 className="mt-1 text-3xl">{subheading}</h2>
