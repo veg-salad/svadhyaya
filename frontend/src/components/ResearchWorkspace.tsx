@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
+import { Icon } from '@iconify/react';
 import { Loader2 } from 'lucide-react';
 
 import { useAuth } from '../auth/AuthContext';
@@ -6,15 +7,11 @@ import { SAMPLE_TEXT } from '../sample';
 import type { AnalyzeResponse, AnalyzeStage } from '../types';
 
 import EmicAlignmentPanel from './EmicAlignmentPanel';
-import { Diya, Grantha, Yantra } from './IndicIcons';
 import ScholarBriefPanel from './ScholarBriefPanel';
 
 type TabKey = 'emic' | 'brief';
 
-/**
- * Two-column research workspace. Pāṭha (input) 5/12, Vimarśa (analysis)
- * 7/12 so the analytical yield dominates.
- */
+/** Two-column workspace: Pāṭha (5/12) left, Vimarśa (7/12) right. */
 export default function ResearchWorkspace(): JSX.Element {
   const { tokens } = useAuth();
   const [text, setText] = useState<string>('');
@@ -79,7 +76,10 @@ export default function ResearchWorkspace(): JSX.Element {
           <div>
             <p className="inscription">Pāṭha</p>
             <h2 className="flex items-center gap-2 text-xl">
-              <Grantha className="h-5 w-5 text-terracotta" />
+              <Icon
+                icon="game-icons:book-cover"
+                className="h-5 w-5 text-terracotta"
+              />
               Research Passage
             </h2>
           </div>
@@ -109,7 +109,7 @@ export default function ResearchWorkspace(): JSX.Element {
             {isLoading ? (
               <Loader2 className="h-4 w-4 animate-spin" aria-hidden />
             ) : (
-              <Diya className="h-4 w-4" />
+              <Icon icon="game-icons:oil-lamp" className="h-4 w-4" />
             )}
             {isLoading ? 'Analyzing...' : 'Ārambha · Analyze'}
           </button>
@@ -135,7 +135,10 @@ export default function ResearchWorkspace(): JSX.Element {
         <div className="mb-3">
           <p className="inscription">Vimarśa</p>
           <h2 className="flex items-center gap-2 text-xl">
-            <Yantra className="h-5 w-5 text-terracotta" />
+            <Icon
+              icon="game-icons:mandala"
+              className="h-5 w-5 text-terracotta"
+            />
             Analysis
           </h2>
         </div>

@@ -1,12 +1,12 @@
-import type { ScholarBrief } from '../types';
+import { Icon } from '@iconify/react';
 
-import { Chakra, Dvaja, Grantha } from './IndicIcons';
+import type { ScholarBrief } from '../types';
 
 interface Props {
   brief: ScholarBrief;
 }
 
-/** Śodharthī panel: synthesis, core themes, research angles. */
+/** Śodharthī panel: synthesis, core themes, and research angles. */
 export default function ScholarBriefPanel({ brief }: Props): JSX.Element {
   const empty =
     !brief.executiveSummary &&
@@ -16,7 +16,10 @@ export default function ScholarBriefPanel({ brief }: Props): JSX.Element {
   if (empty) {
     return (
       <div className="card p-6 text-center text-ink-muted dark:text-ink-inverse-muted">
-        <Grantha className="mx-auto mb-3 h-6 w-6 text-terracotta" />
+        <Icon
+          icon="game-icons:scroll-unfurled"
+          className="mx-auto mb-3 h-7 w-7 text-terracotta"
+        />
         <p className="font-serif text-lg text-ink dark:text-ink-inverse">
           No brief yet.
         </p>
@@ -29,7 +32,10 @@ export default function ScholarBriefPanel({ brief }: Props): JSX.Element {
     <div className="space-y-4">
       <section className="card p-6">
         <header className="mb-3 flex items-center gap-2">
-          <Grantha className="h-4 w-4 text-terracotta" />
+          <Icon
+            icon="game-icons:scroll-unfurled"
+            className="h-5 w-5 text-terracotta"
+          />
           <h3 className="text-lg">Executive Synthesis</h3>
         </header>
         <p className="font-body text-base leading-relaxed text-ink dark:text-ink-inverse">
@@ -39,7 +45,7 @@ export default function ScholarBriefPanel({ brief }: Props): JSX.Element {
 
       <section className="card p-6">
         <header className="mb-3 flex items-center gap-2">
-          <Chakra className="h-4 w-4 text-terracotta" />
+          <Icon icon="game-icons:mandala" className="h-5 w-5 text-terracotta" />
           <h3 className="text-lg">Core Indic Themes</h3>
         </header>
         <ul className="space-y-2">
@@ -57,7 +63,7 @@ export default function ScholarBriefPanel({ brief }: Props): JSX.Element {
 
       <section className="card p-6">
         <header className="mb-3 flex items-center gap-2">
-          <Dvaja className="h-4 w-4 text-terracotta" />
+          <Icon icon="game-icons:banner" className="h-5 w-5 text-terracotta" />
           <h3 className="text-lg">Recommended Research Angles</h3>
         </header>
         <ol className="space-y-3">

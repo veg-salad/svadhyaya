@@ -1,19 +1,21 @@
 import { ArrowRight } from 'lucide-react';
+import { Icon } from '@iconify/react';
 
 import type { EmicAlignment } from '../types';
-
-import { Grantha } from './IndicIcons';
 
 interface Props {
   alignments: EmicAlignment[];
 }
 
-/** Dṛṣṭi-Śuddhi panel: emic replacements for colonized terms in the draft. */
+/** Dṛṣṭi-Śuddhi panel: emic replacements for colonized terms. */
 export default function EmicAlignmentPanel({ alignments }: Props): JSX.Element {
   if (alignments.length === 0) {
     return (
       <div className="card p-6 text-center text-ink-muted dark:text-ink-inverse-muted">
-        <Grantha className="mx-auto mb-3 h-6 w-6 text-terracotta" />
+        <Icon
+          icon="game-icons:book-cover"
+          className="mx-auto mb-3 h-7 w-7 text-terracotta"
+        />
         <p className="font-serif text-lg text-ink dark:text-ink-inverse">
           No colonized framing detected.
         </p>

@@ -1,8 +1,8 @@
-import { Chakra, Chandra, Surya } from './IndicIcons';
+import { Icon } from '@iconify/react';
 
 import { useTheme } from '../theme';
 
-/** Small round toggle — chakra frames a rotating Sūrya/Chandra glyph. */
+/** Small round toggle showing a sundial or half-moon (Iconify game-icons). */
 export default function ThemeToggle(): JSX.Element {
   const { theme, toggle } = useTheme();
   const isDark = theme === 'dark';
@@ -10,16 +10,14 @@ export default function ThemeToggle(): JSX.Element {
     <button
       type="button"
       onClick={toggle}
-      className="group btn-icon relative overflow-hidden"
+      className="btn-icon"
       aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
       title={isDark ? 'Sūrya · Light mode' : 'Chandra · Dark mode'}
     >
-      <Chakra className="absolute inset-1 h-6 w-6 text-terracotta/30 transition-transform duration-700 group-hover:rotate-45" />
-      {isDark ? (
-        <Surya className="relative h-3.5 w-3.5 text-terracotta" />
-      ) : (
-        <Chandra className="relative h-3.5 w-3.5 text-terracotta" />
-      )}
+      <Icon
+        icon={isDark ? 'game-icons:sundial' : 'game-icons:half-moon'}
+        className="h-5 w-5 text-terracotta"
+      />
     </button>
   );
 }

@@ -1,12 +1,10 @@
+import { Icon } from '@iconify/react';
+
 import { useAuth } from '../auth/AuthContext';
 
-import { Dvaja } from './IndicIcons';
 import ThemeToggle from './ThemeToggle';
 
-/**
- * Top-of-page header. Signed-in state shows the user's full name and a
- * dvaja icon for sign-out; theme toggle sits between.
- */
+/** Top-of-page header with signed-in name, theme toggle, and sign-out. */
 export default function Header(): JSX.Element {
   const { tokens, signOut } = useAuth();
   return (
@@ -44,7 +42,7 @@ export default function Header(): JSX.Element {
               onClick={signOut}
               title="Sign out"
             >
-              <Dvaja className="h-4 w-4" />
+              <Icon icon="game-icons:exit-door" className="h-4 w-4" />
               <span className="hidden md:inline">Sign out</span>
             </button>
           )}
