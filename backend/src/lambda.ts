@@ -25,7 +25,9 @@ async function bootstrap(): Promise<Handler> {
   const app = await NestFactory.create(
     AppModule,
     new ExpressAdapter(expressApp),
-    { cors: true, logger: ['error', 'warn', 'log'] },
+    // CORS is handled by API Gateway HttpApi's built-in CORS. Disabling Nest's
+    // CORS avoids duplicate `Access-Control-Allow-Origin` responses.
+    { cors: false, logger: ['error', 'warn', 'log'] },
   );
   app.setGlobalPrefix('api');
   app.useGlobalPipes(

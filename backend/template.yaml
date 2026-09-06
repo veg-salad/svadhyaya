@@ -15,10 +15,10 @@ Parameters:
     Default: https://api.openai.com/v1
   CognitoUserPoolId:
     Type: String
-    Default: ap-south-1_SvcMWhvVh
+    Default: ap-south-1_uy1LhafQV
   CognitoClientId:
     Type: String
-    Default: 58q44mvcgfinqi0m0kv5s18u7e
+    Default: 5h2qdf0b3oomjtfgmpkeqcj3cs
   CognitoRegion:
     Type: String
     Default: ap-south-1
@@ -50,7 +50,7 @@ Resources:
         AllowHeaders:
           - Authorization
           - Content-Type
-        MaxAge: 86400
+        MaxAge: 60
 
   SvadhyayaFunction:
     Type: AWS::Serverless::Function
@@ -68,12 +68,14 @@ Resources:
           COGNITO_REGION: !Ref CognitoRegion
           NODE_OPTIONS: '--enable-source-maps'
       Events:
-        AnyRoute:
+        # POST-only so API Gateway's built-in CORS handles OPTIONS itself
+        # (Method: ANY would swallow preflights and forward them to Nest).
+        AnalyzeRoute:
           Type: HttpApi
           Properties:
             ApiId: !Ref SvadhyayaApi
             Path: /{proxy+}
-            Method: ANY
+            Method: POST
 
   SvadhyayaLogGroup:
     Type: AWS::Logs::LogGroup
