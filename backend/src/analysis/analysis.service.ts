@@ -1,6 +1,7 @@
 import { Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import OpenAI from 'openai';
+import type { ChatCompletion } from 'openai/resources/chat/completions';
 
 import type {
   AnalyzeResponse,
@@ -79,15 +80,24 @@ export class AnalysisService {
    */
   async analyze(text: string): Promise<AnalyzeResponse> {
     try {
-      const completion = await this.client.chat.completions.create({
+      // GPT-5 family (o-series successors) only accepts the default
+      // temperature (1). Older models take an explicit value.
+      const supportsTemperature = !/^gpt-5/i.test(this.model);
+      const params: Parameters<
+        typeof this.client.chat.completions.create
+      >[0] = {
         model: this.model,
-        temperature: 0.4,
         response_format: { type: 'json_object' },
         messages: [
           { role: 'system', content: SYSTEM_PROMPT },
           { role: 'user', content: text },
         ],
-      });
+        ...(supportsTemperature ? { temperature: 0.4 } : {}),
+        stream: false,
+      };
+      const completion = (await this.client.chat.completions.create(
+        params,
+      )) as ChatCompletion;
 
       const raw = completion.choices[0]?.message?.content;
       if (!raw) {

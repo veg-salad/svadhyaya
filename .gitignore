@@ -26,3 +26,7 @@ backend/lambda.zip
 backend/.packaged.yaml
 .screenshot.png
 
+
+# TS incremental build artifacts
+frontend/tsconfig.tsbuildinfo
+

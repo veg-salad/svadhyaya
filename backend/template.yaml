@@ -9,7 +9,7 @@ Parameters:
     Description: OpenAI API key (do not commit).
   OpenAIModel:
     Type: String
-    Default: gpt-4o-mini
+    Default: gpt-5.6-terra
   OpenAIBaseUrl:
     Type: String
     Default: https://api.openai.com/v1
