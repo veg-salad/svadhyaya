@@ -3,8 +3,7 @@
   "framework": "vite",
   "functions": {
     "api/analyze.ts": {
-      "maxDuration": 60,
-      "memory": 1024
+      "maxDuration": 60
     }
   },
   "rewrites": [
