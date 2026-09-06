@@ -167,6 +167,7 @@ export default async function handler(
     }
     const msg = err instanceof Error ? err.message : 'Unknown error';
     console.error('analyze failed:', msg);
-    res.status(500).json({ message: 'Analysis failed. Please retry.' });
+    // TODO: remove `detail` once the deploy is stable — surfacing so we can debug.
+    res.status(500).json({ message: 'Analysis failed. Please retry.', detail: msg });
   }
 }
