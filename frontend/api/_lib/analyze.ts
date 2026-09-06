@@ -1,5 +1,4 @@
 import OpenAI from 'openai';
-import type { ChatCompletion } from 'openai/resources/chat/completions';
 
 import { SYSTEM_PROMPT } from './prompt';
 
@@ -21,36 +20,31 @@ export interface AnalyzeResponse {
   scholarBrief: ScholarBrief;
 }
 
-let cached: OpenAI | null = null;
+let cachedClient: OpenAI | null = null;
 function client(): OpenAI {
-  if (cached) return cached;
+  if (cachedClient) return cachedClient;
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) throw new Error('OPENAI_API_KEY is not set on the server.');
   const baseURL = process.env.OPENAI_BASE_URL || undefined;
-  cached = new OpenAI({ apiKey, baseURL });
-  return cached;
+  cachedClient = new OpenAI({ apiKey, baseURL });
+  return cachedClient;
 }
 
 /** Calls the configured model in JSON mode and normalises the response. */
 export async function analyze(text: string): Promise<AnalyzeResponse> {
   const model = process.env.OPENAI_MODEL || 'gpt-5.6-terra';
-  // GPT-5 family requires the default temperature (1).
+  // GPT-5 family requires the default temperature (1); older models accept 0.4.
   const supportsTemperature = !/^gpt-5/i.test(model);
-  const params: Parameters<
-    typeof OpenAI.prototype.chat.completions.create
-  >[0] = {
+  const messages = [
+    { role: 'system' as const, content: SYSTEM_PROMPT },
+    { role: 'user' as const, content: text },
+  ];
+  const completion = await client().chat.completions.create({
     model,
     response_format: { type: 'json_object' },
-    messages: [
-      { role: 'system', content: SYSTEM_PROMPT },
-      { role: 'user', content: text },
-    ],
+    messages,
     ...(supportsTemperature ? { temperature: 0.4 } : {}),
-    stream: false,
-  };
-  const completion = (await client().chat.completions.create(
-    params,
-  )) as ChatCompletion;
+  });
   const raw = completion.choices[0]?.message?.content;
   if (!raw) throw new Error('Model returned an empty response.');
   return parseResponse(raw);
