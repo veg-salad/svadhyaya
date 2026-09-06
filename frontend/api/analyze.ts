@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-import { analyze } from './_lib/analyze';
-import { UnauthorizedError, verifyCognitoBearer } from './_lib/cognito';
+import { analyze } from '../server-lib/analyze';
+import { UnauthorizedError, verifyCognitoBearer } from '../server-lib/cognito';
 
 // Vercel Fluid Compute: give Terra enough headroom (Pro allows up to 300s).
 export const config = {

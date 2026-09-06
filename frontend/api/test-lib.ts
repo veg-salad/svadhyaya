@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-import { SYSTEM_PROMPT } from './_lib/prompt';
+import { SYSTEM_PROMPT } from '../server-lib/prompt';
 
 /** Diagnostic: does `_lib/prompt` load. */
 export default function handler(
